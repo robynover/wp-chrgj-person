@@ -1,0 +1,37 @@
+SELECT wp_posts.*, wp_p2p.* FROM wp_posts 
+	INNER JOIN wp_p2p 
+	WHERE 1=1 AND wp_posts.post_type IN ('chrgj_person') 
+	AND (wp_posts.post_status = 'publish' OR wp_posts.post_author = 1 AND wp_posts.post_status = 'private') 
+	AND (wp_p2p.p2p_type = 'book_to_person' 
+	AND wp_posts.ID = wp_p2p.p2p_to 
+	AND wp_p2p.p2p_from IN (SELECT SQL_CALC_FOUND_ROWS wp_posts.ID FROM wp_posts WHERE 1=1 AND wp_posts.ID IN (755) 
+	AND wp_posts.post_type IN ('chrgj_book') 
+	AND (wp_posts.post_status = 'publish' OR wp_posts.post_author = 1 AND wp_posts.post_status = 'private') ORDER BY wp_posts.post_date DESC LIMIT 0, 6)) ORDER BY wp_posts.post_date DESC
+	
+	
+	
+SELECT   wp_posts.*, wp_p2p.* FROM wp_posts  
+	INNER JOIN wp_p2p WHERE 1=1  AND wp_posts.post_type IN ('chrgj_book') 
+	AND (wp_posts.post_status = 'publish' OR wp_posts.post_author = 1 AND wp_posts.post_status = 'private') 
+	AND (wp_p2p.p2p_type = 'book_to_person' AND wp_posts.ID = wp_p2p.p2p_from AND wp_p2p.p2p_to 
+			IN (SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID FROM wp_posts  WHERE 1=1  
+				AND wp_posts.ID IN (945) 
+				AND wp_posts.post_type IN ('chrgj_person') 
+				AND (wp_posts.post_status = 'publish' OR wp_posts.post_author = 1 AND wp_posts.post_status = 'private')  
+				ORDER BY wp_posts.post_date DESC LIMIT 0, 6))  
+	ORDER BY wp_posts.post_date DESC
+	
+	
+-------
+SELECT   wp_posts.*, wp_p2p.* FROM wp_posts  
+INNER JOIN wp_p2p WHERE 1=1  
+AND wp_posts.post_type IN ('chrgj_book')
+AND (wp_posts.post_status = 'publish' OR wp_posts.post_author = 1 AND wp_posts.post_status = 'private') 
+AND wp_p2p.p2p_type = 'book_to_person'
+AND p2p_to = 945
+
+----
+SELECT * FROM wp_p2p 
+LEFT JOIN wp_posts ON p2p_from = ID
+WHERE p2p_to = 945 AND p2p_type = 'book_to_person'
+AND wp_posts.post_status = 'publish'
