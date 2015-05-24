@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Page Type for Person
-Plugin URI: http://github.com/robynover
+Plugin URI: https://github.com/robynover/wp-chrgj-person
 Description: Defines a post type for people on chrgj.org
 Version: 1.0
 Author: Robyn Overstreet
